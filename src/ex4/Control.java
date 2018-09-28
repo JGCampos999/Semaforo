@@ -5,24 +5,22 @@ import java.util.concurrent.Semaphore;
 public class Control extends Thread {
 
 	private int Op;
-	private int idThread;
 	private Semaphore controlaOp;
 	private Semaphore OpSem;
 	private Semaphore SemOp;
-	private int Cod[] = new int[20];
-	private double Saldo[] = new double[20];
-	private double Val[] = new double[20];
+	private int Cod;
+	private double Saldo;
+	private double Val;
 
 	public Control(int idThread, int Op, Semaphore OpSem, Semaphore controlaOp,
 			double Valor, double Saldo) {
-		this.idThread = idThread;
 		this.Op = Op;
 		this.OpSem = OpSem;
 		this.SemOp = OpSem;
 		this.controlaOp = controlaOp;
-		this.Cod[idThread] = idThread;
-		this.Val[idThread] = Valor;
-		this.Saldo[idThread] = Saldo;
+		this.Cod = idThread;
+		this.Val = Valor;
+		this.Saldo = Saldo;
 
 	}
 
@@ -60,21 +58,18 @@ public class Control extends Thread {
 	}
 
 	public void Saca() {
-		Saldo[idThread] -= Val[idThread];
-		System.out.println("Thread #" + (idThread + 1)
+		Saldo -= Val;
+		System.out.println("Thread #" + Cod
 				+ " Operação de Saque concluída com sucesso\nVocê sacou: "
-				+ Val[idThread] + " da conta " + Cod[idThread]
-				+ "\nO saldo é de:  " + Saldo[idThread]);
+				+ Val + " da conta " + Cod + "\nO saldo é de:  " + Saldo);
 	}
 
 	public void Deposita() {
-		Saldo[idThread] += Val[idThread];
-		System.out
-				.println("Thread #"
-						+ (idThread + 1)
-						+ " Operação de Depósito concluída com sucesso\nVocê depositou: "
-						+ Val[idThread] + " na conta " + Cod[idThread]
-						+ "\nO saldo é de: " + Saldo[idThread]);
+		Saldo += Val;
+		System.out.println("Thread #"
+				+ Cod
+				+ " Operação de Depósito concluída com sucesso\nVocê depositou: "
+				+ Val + " na conta " + Cod + "\nO saldo é de: " + Saldo);
 	}
 
 }

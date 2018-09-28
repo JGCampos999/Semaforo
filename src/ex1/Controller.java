@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 public class Controller extends Thread {
 	private int numPessoa;
 	private Semaphore porta;
-	private int Vet[] = new int[4];
+	private int Vet;
 
 	public Controller(int numPessoa, Semaphore porta) {
 		this.numPessoa = numPessoa;
@@ -13,14 +13,14 @@ public class Controller extends Thread {
 	}
 
 	public void run() {
-		while (Vet[numPessoa] < 200) {
+		while (Vet < 200) {
 			passaPorta();
 		}
 	}
 
 	public void passaPorta() {
-		Vet[numPessoa] += (int) (4 + Math.random() * 3);
-		if (Vet[numPessoa] > 199) {
+		Vet += (int) (4 + Math.random() * 3);
+		if (Vet > 199) {
 			try {
 				porta.acquire();
 				System.out.println((numPessoa + 1) + "º pessoa chegou na porta");
